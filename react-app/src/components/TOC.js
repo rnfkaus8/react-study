@@ -5,7 +5,18 @@ class TOC extends Component {
         const lists = [];
         const contents = this.props.data;
         for (const content of contents) {
-            lists.push(<li key={content.id}><a href={"/content/" + content.id}>{content.title}</a></li>);
+            lists.push(
+                <li key={content.id}>
+                    <a href={"/content/" + content.id}
+                       onClick={(e) => {
+                           e.preventDefault();
+                           this.props.onChangeMode();
+                       }}
+                    >
+                        {content.title}
+                    </a>
+                </li>
+            );
         }
         return (
             <nav>
