@@ -8,9 +8,10 @@ class TOC extends Component {
             lists.push(
                 <li key={content.id}>
                     <a href={"/content/" + content.id}
+                       data-id={content.id}
                        onClick={(e) => {
                            e.preventDefault();
-                           this.props.onChangeMode();
+                           this.props.onChangePage(e.target.dataset.id);
                        }}
                     >
                         {content.title}
