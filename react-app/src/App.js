@@ -9,6 +9,7 @@ class App extends Component {
         super(props);
         this.state = {
             mode: 'welcome',
+            selected_content_id: 1,
             subject: {title: 'WEB', content: 'World Wide Web!'},
             welcome: {title: 'Welcome', desc: 'Hello, React!!'},
             contents: [
@@ -19,16 +20,16 @@ class App extends Component {
         };
     }
     render() {
-        let {_title, _desc} = this.changeTitleAndDesc(this.state.mode);
+        let {_title, _desc} = this.getTitleAndDesc();
         return (
             <div className="App">
                 <Subject
                     title={this.state.subject.title}
                     content={this.state.subject.content}
-                    onChangeMode={this.changeMode('welcome')}
+                    onChangePage={this.changePage('welcome')}
                 />
                 <TOC
-                    onChangeMode={this.changeMode('read')}
+                    onChangePage={this.changePage('read')}
                     data={this.state.contents}
                 />
                 <Content
@@ -39,21 +40,25 @@ class App extends Component {
         );
     }
 
-    changeMode(_mode) {
-        return () => {
-            this.setState({mode: _mode})
+    changePage(mode) {
+        return (id) => {
+            this.setState({
+                mode: mode,
+                selected_content_id: Number(id)
+            });
         };
     }
 
-    changeTitleAndDesc(mode) {
+    getTitleAndDesc() {
         let _title, _desc = null;
-        if (mode === 'welcome') {
+        if (this.state.mode === 'welcome') {
             _title = this.state.welcome.title;
             _desc = this.state.welcome.desc;
             return {_title, _desc};
         }
-        _title = this.state.contents[0].title;
-        _desc = this.state.contents[0].desc;
+        const content = this.state.contents.find(content => content.id === this.state.selected_content_id);
+        _title = content.title;
+        _desc = content.desc;
         return {_title, _desc};
     }
 }
