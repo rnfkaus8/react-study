@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import TOC from "./components/TOC";
 import Content from "./components/Content";
 import Subject from "./components/Subject";
+import Control from "./components/Control";
 
 class App extends Component {
     constructor(props) {
@@ -32,6 +33,11 @@ class App extends Component {
                     onChangePage={this.changePage('read')}
                     data={this.state.contents}
                 />
+                <Control onChangeMode={(_mode) => {
+                    this.setState({
+                        mode: _mode
+                    })
+                }}></Control>
                 <Content
                     title={_title}
                     desc={_desc}
@@ -50,7 +56,7 @@ class App extends Component {
     }
 
     getTitleAndDesc() {
-        let _title, _desc = null;
+        let _title, _desc;
         if (this.state.mode === 'welcome') {
             _title = this.state.welcome.title;
             _desc = this.state.welcome.desc;
