@@ -1,7 +1,8 @@
 import './App.css';
-import React, { Component } from "react";
+import React, {Component} from "react";
 import TOC from "./components/TOC";
-import Content from "./components/Content";
+import ReadContent from "./components/ReadContent";
+import CreateContent from "./components/CreateContent";
 import Subject from "./components/Subject";
 import Control from "./components/Control";
 
@@ -21,7 +22,6 @@ class App extends Component {
         };
     }
     render() {
-        let {_title, _desc} = this.getTitleAndDesc();
         return (
             <div className="App">
                 <Subject
@@ -37,11 +37,8 @@ class App extends Component {
                     this.setState({
                         mode: _mode
                     })
-                }}></Control>
-                <Content
-                    title={_title}
-                    desc={_desc}
-                />
+                }}/>
+                {this.getContents()}
             </div>
         );
     }
@@ -55,17 +52,21 @@ class App extends Component {
         };
     }
 
-    getTitleAndDesc() {
-        let _title, _desc;
+    getContents() {
+        let _title, _desc, _article;
         if (this.state.mode === 'welcome') {
             _title = this.state.welcome.title;
             _desc = this.state.welcome.desc;
-            return {_title, _desc};
+            _article = <ReadContent title={_title} desc={_desc}/>
+        } else if (this.state.mode === 'read') {
+            const content = this.state.contents.find(content => content.id === this.state.selected_content_id);
+            _title = content.title;
+            _desc = content.desc;
+            _article = <ReadContent title={_title} desc={_desc}/>
+        } else if (this.state.mode === 'create') {
+            _article = <CreateContent/>
         }
-        const content = this.state.contents.find(content => content.id === this.state.selected_content_id);
-        _title = content.title;
-        _desc = content.desc;
-        return {_title, _desc};
+        return _article;
     }
 }
 
