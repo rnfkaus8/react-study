@@ -8,7 +8,7 @@ class CreateContent extends Component {
                     <h2>Create</h2>
                     <form>
                         <p>
-                            <input type="text" name="title" placeholder="title" />
+                            <input type="text" name="title" placeholder="title"/>
                         </p>
                     </form>
                 </form>
