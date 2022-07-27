@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
 
 class Habit extends Component {
+    state = {
+        count: 0,
+    }
+
+    handleIncrement = () => {
+        this.setState({
+            count: this.state.count + 1,
+        })
+    }
+    
+    handleDecreament = () => {
+        const count = this.state.count - 1;
+        console.log(count);
+        this.setState({
+            count: count < 0 ? 0 : count
+        })
+    }
+
     render() {
         return(
             <li className='habit'>
                 <span className='habit-name'>Reading</span>
-                <span className='habit-count'>0</span>
-                <button className='habit-button habit-increase'>
-                    <i class="fa-solid fa-square-plus"></i>
+                <span className='habit-count'>{this.state.count}</span>
+                <button className='habit-button habit-increase' onClick={this.handleIncrement}>
+                    <i className="fa-solid fa-square-plus"></i>
                 </button>
-                <button className='habit-button habit-decrease'>
-                    <i class="fa-solid fa-square-minus"></i>
+                <button className='habit-button habit-decrease' onClick={this.handleDecreament}>
+                    <i className="fa-solid fa-square-minus"></i>
                 </button>
                 <button className='habit-button habit-delete'>
-                    <i class="fa-solid fa-trash"></i>
+                    <i className="fa-solid fa-trash"></i>
                 </button>
             </li>
         ) 
