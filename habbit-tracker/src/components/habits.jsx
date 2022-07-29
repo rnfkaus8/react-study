@@ -7,7 +7,7 @@ class Habits extends Component {
     this.props.onIncrement(habit);
   };
 
-  handleDecreament = (habit) => {
+  handleDecrement = (habit) => {
     this.props.onDecreament(habit);
   };
 
@@ -29,7 +29,7 @@ class Habits extends Component {
               key={habit.id}
               habit={habit}
               onIncrement={this.handleIncrement}
-              onDecreament={this.handleDecreament}
+              onDecreament={this.handleDecrement}
               onDelete={this.handleDelete}
             />
           ))}

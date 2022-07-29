@@ -5,7 +5,7 @@ class Habit extends PureComponent {
     this.props.onIncrement(this.props.habit);
   };
 
-  handleDecreament = () => {
+  handleDecrement = () => {
     this.props.onDecreament(this.props.habit);
   };
 
@@ -27,7 +27,7 @@ class Habit extends PureComponent {
         </button>
         <button
           className="habit-button habit-decrease"
-          onClick={this.handleDecreament}
+          onClick={this.handleDecrement}
         >
           <i className="fa-solid fa-square-minus"></i>
         </button>
