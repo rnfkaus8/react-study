@@ -1,24 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import YouTubeAPIConstant from "./apis/YouTubeAPIConstant";
 import VideoList from "./components/video_list/VideoList";
+import VideoSearchForm from "./components/video_search/VideoSearchForm";
+import styles from "./App.module.css";
 
-const App = (props) => {
+const App = ({youtube}) => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-    };
-    const requestUrl = YouTubeAPIConstant.URL
-      + '/videos?part=snippet&chart=mostPopular&maxResults=25&key='
-      + YouTubeAPIConstant.API_KEY;
-    fetch(requestUrl, requestOptions)
-      .then(response => response.json())
-      .then(result => setVideos(result.items))
-      .catch(err => console.log('err', err));
+    youtube
+      .mostPopular()
+      .then(videos => setVideos(videos));
   }, []);
-  return <VideoList videos={videos} />;
+
+  const handleSearch = (query) => {
+    youtube
+      .search(query)
+      .then(videos => setVideos(videos));
+  };
+  return (
+    <div className={styles.app}>
+      <VideoSearchForm onSearch={handleSearch} />
+      <VideoList videos={videos}/>
+    </div>
+  );
 };
 
 export default App;
