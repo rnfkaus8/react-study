@@ -7,18 +7,20 @@ class Youtube {
     }
   }
 
-  mostPopular() {
+  async mostPopular() {
     const requestUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=${this.key}`;
-    return fetch(requestUrl, this.getRequestOptions)
-      .then(response => response.json())
-      .then(result => result.items)
+
+    const response = await fetch(requestUrl, this.getRequestOptions);
+    const result = await response.json();
+    return result.items;
   }
 
-  search(query) {
-    const requestUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=bts&key=${this.key}`;
-    return fetch(requestUrl, this.getRequestOptions)
-      .then(response => response.json())
-      .then(result => result.items.map(item => ({...item, id:item.id.videoId})))
+  async search(query) {
+    const requestUrl = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=25&q=${query}&key=${this.key}`;
+    const response = await fetch(requestUrl, this.getRequestOptions);
+    const result = await response.json();
+    const map = result.items.map(item => ({...item, id: item.id.videoId}));
+    return map;
   }
 }
 
