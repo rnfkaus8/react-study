@@ -1,14 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
+import { Menu } from 'antd';
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <div>
-      <div>
-        <Link href="/">NodeBird</Link>
-        <Link href="/profile">profile</Link>
-        <Link href="/signup">signup</Link>
-      </div>
+      <Menu mode="horizontal">
+        <Menu.Item>
+          <Link href="/">NodeBird</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/profile">profile</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/signup">signup</Link>
+        </Menu.Item>
+      </Menu>
       {children}
     </div>
   );
